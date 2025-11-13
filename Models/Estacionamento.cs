@@ -24,12 +24,21 @@ namespace DesafioEstacionamento.Models
 
         }
 
-        public void ListarVeiculo(string placa) {
+        public void ListarVeiculo() {
 
         }
 
         public void PrecoHora(double tempo) {
 
+        }
+
+        public string ExibirMenu() {
+            string texto =  "Sistema de Estacionamento\n" +
+                            "1 - Cadastrar Veiculo\n" +
+                            "2 - Remover Veiculo\n" +
+                            "3 - Listar Veiculos\n" +
+                            "0 - Sair";
+            return texto;
         }
         
     }
