@@ -45,11 +45,10 @@ namespace DesafioEstacionamento.Models
 
         private List<string> veiculos = new List<string>();
 
-        /*
         public Estacionamento(decimal precoInicial, decimal precoPorHora) {
             this.PrecoInicial = precoInicial;
             this.PrecoPorHora = precoPorHora;
-        }*/
+        }
 
         public bool ValidarPlaca(string placa) {
             if (string.IsNullOrEmpty(placa)) {
