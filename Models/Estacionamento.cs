@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,15 +8,48 @@ namespace DesafioEstacionamento.Models
 {
     public class Estacionamento {
 
-        private decimal precoInicial;
-        private decimal precoPorHora;
-        private decimal precoFinal;
+        // Algumas propriedades uteis com validacao para valor nulo
+        private decimal _precoInicial;
+        private decimal _precoPorHora;
+        private decimal _precoFinal;
+
+        public decimal PrecoInicial {
+            get => _precoInicial;
+            set {
+                if (value < 0) {
+                    throw new Exception("Valor vazio !");
+                }
+                _precoInicial = value;
+            }
+        }
+
+        public decimal PrecoPorHora {
+            get => _precoPorHora;
+            set {
+                if (value < 0) {
+                    throw new Exception("Valor vazio !");
+                }
+                _precoPorHora = value;
+            }
+        }
+
+        public decimal PrecoFinal {
+            get => _precoFinal;
+            set {
+                if (value < 0) {
+                    throw new Exception("Valor Vazio !");
+                }
+                _precoFinal = value;
+            }
+        }
+
         private List<string> veiculos = new List<string>();
 
+        /*
         public Estacionamento(decimal precoInicial, decimal precoPorHora) {
-            this.precoInicial = precoInicial;
-            this.precoPorHora = precoPorHora;
-        }
+            this.PrecoInicial = precoInicial;
+            this.PrecoPorHora = precoPorHora;
+        }*/
 
         public bool ValidarPlaca(string placa) {
             if (string.IsNullOrEmpty(placa)) {
@@ -28,8 +62,8 @@ namespace DesafioEstacionamento.Models
 
         // Calcula o preco-hora do veiculo estacionado
         public decimal PrecoHora(double tempo) {
-            this.precoFinal = (this.precoPorHora * Convert.ToDecimal(tempo)) + this.precoInicial;
-            return Math.Round(this.precoFinal, 2);
+            this.PrecoFinal = (this.PrecoPorHora * Convert.ToDecimal(tempo)) + this.PrecoInicial;
+            return Math.Round(this.PrecoFinal, 2);
         }
 
         // Realiza o cadastro do veiculo
