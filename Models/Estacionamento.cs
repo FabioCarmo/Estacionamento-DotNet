@@ -16,7 +16,7 @@ namespace DesafioEstacionamento.Models
         public decimal PrecoInicial {
             get => _precoInicial;
             set {
-                if (value < 0) {
+                if (value == 0) {
                     throw new Exception("Valor vazio !");
                 }
                 _precoInicial = value;
@@ -26,7 +26,7 @@ namespace DesafioEstacionamento.Models
         public decimal PrecoPorHora {
             get => _precoPorHora;
             set {
-                if (value < 0) {
+                if (value == 0) {
                     throw new Exception("Valor vazio !");
                 }
                 _precoPorHora = value;
@@ -36,7 +36,7 @@ namespace DesafioEstacionamento.Models
         public decimal PrecoFinal {
             get => _precoFinal;
             set {
-                if (value < 0) {
+                if (value == 0) {
                     throw new Exception("Valor Vazio !");
                 }
                 _precoFinal = value;
@@ -50,8 +50,13 @@ namespace DesafioEstacionamento.Models
             this.PrecoPorHora = precoPorHora;
         }
 
+        // Valida e formata a string de entrada
         public bool ValidarPlaca(string placa) {
             if (string.IsNullOrEmpty(placa)) {
+                return false;
+            }
+
+            if (placa.Length > 8) {
                 return false;
             }
 
@@ -67,48 +72,58 @@ namespace DesafioEstacionamento.Models
 
         // Realiza o cadastro do veiculo
         // Adiciona placa a lista veiculos
-        public string CadastrarVeiculo(string placa) {
+        public void CadastrarVeiculo(string placa) {
             if (! this.ValidarPlaca(placa)) {
-                return "Placa Invalida !";
+                Console.WriteLine("Placa Invalida !");
+                return;
             }
 
             if (this.veiculos.Contains(placa)) {
-                return "Esse veiculo ja esta cadastrado !";
+                Console.WriteLine("Esse veiculo ja esta cadastrado !");
+                return;
             }
 
             this.veiculos.Add(placa);
-            return "Veiculo cadastrado com sucesso !";
+            Console.WriteLine("Veiculo cadastrado com sucesso !");
+
+            return;
         }
 
         // Realiza a remocao do veiculo
         // Remove a placa da lista veiculo
-        public string RemoverVeiculo(string placa, double tempo) {
+        public void RemoverVeiculo(string placa, double tempo) {
             if (! this.ValidarPlaca(placa)) {
-                return "Placa Invalida !";
+                Console.WriteLine("Placa Invalida !");
+                return;
             }
 
             if (this.veiculos.Count == 0 && ! this.veiculos.Contains(placa)) {
-                return "Nao existe veiculos cadastrados !";
+                Console.WriteLine("Nao existe veiculos cadastrados !");
+                return;
             }
 
             decimal valor = this.PrecoHora(tempo);
             this.veiculos.Remove(placa);
-            return $"\tVeiculo Removido! Tempo Estacionado: R${valor}";
+            Console.WriteLine($"\tVeiculo {placa} - Removido! \n\tValor Total: R${valor}");
+
+            return;
         }
 
         // Realiza a listagem dos veiculos
         // Retorna os valores da lista veiculo
-        public string ListarVeiculo() {
+        public void ListarVeiculo() {
             if (this.veiculos.Count == 0) {
-                return "Nao existe veiculos cadastrados !";
+                Console.WriteLine("Nao existe veiculos cadastrados !");
+                return;
             }
 
-            string lista = ""; 
+            string lista = "\nLista de veiculos: "; 
             for (int ind = 0; ind < this.veiculos.Count; ind++) {
-                lista += $"\t\n{ind+1} - Veiculo: {this.veiculos[ind]}";
+                lista += $"\n{ind+1} - Veiculo: {this.veiculos[ind]}";
             }
-
-            return lista;
+            
+            Console.WriteLine(lista, "\n");
+            return;
         }
 
         public string ExibirMenu() {
