@@ -104,7 +104,7 @@ namespace DesafioEstacionamento.Models
 
             decimal valor = this.PrecoHora(tempo);
             this.veiculos.Remove(placa);
-            Console.WriteLine($"\tVeiculo {placa} - Removido! \n\tValor Total: R${valor}");
+            Console.WriteLine($"\tVeiculo {placa} - Removido! \n\tValor Total: {valor:C}");
 
             return;
         }
